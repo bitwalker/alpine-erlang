@@ -39,6 +39,7 @@ RUN \
       zlib-dev@main && \
     # Install Erlang/OTP build deps
     apk add --no-cache --virtual .erlang-build \
+      dpkg-dev@main dpkg@main \
       git@main autoconf@main build-base@main perl-dev@main && \
     # Shallow clone Erlang/OTP
     git clone -b OTP-$ERLANG_VERSION --single-branch --depth 1 https://github.com/erlang/otp.git . && \
@@ -49,6 +50,7 @@ RUN \
     # Configure
     ./otp_build autoconf && \
     ./configure --prefix=/usr \
+      --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
       --sysconfdir=/etc \
       --mandir=/usr/share/man \
       --infodir=/usr/share/info \
