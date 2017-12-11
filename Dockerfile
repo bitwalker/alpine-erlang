@@ -6,21 +6,20 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2017-12-02 \
+ENV REFRESHED_AT=2017-12-11 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
+    BUILD_TEMP=/tmp/erlang-build \
     # Set this so that CTRL+G works properly
     TERM=xterm \
     ERLANG_VERSION=20.1.7
 
-WORKDIR /tmp/erlang-build
-
 # Install Erlang
 RUN \
     # Create default user and home directory, set owner to default
-    mkdir -p ${HOME} && \
-    adduser -s /bin/sh -u 1001 -G root -h ${HOME} -S -D default && \
-    chown -R 1001:0 ${HOME} && \
+    mkdir -p "${HOME}" && \
+    adduser -s /bin/sh -u 1001 -G root -h "${HOME}" -S -D default && \
+    chown -R 1001:0 "${HOME}" && \
     # Add tagged repos as well as the edge repo so that we can selectively install edge packages
     echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories && \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories && \
@@ -41,10 +40,12 @@ RUN \
     apk add --no-cache --virtual .erlang-build \
       dpkg-dev@main dpkg@main \
       git@main autoconf@main build-base@main perl-dev@main && \
+    mkdir -p ${BUILD_TEMP} && \
     # Shallow clone Erlang/OTP
-    git clone -b OTP-$ERLANG_VERSION --single-branch --depth 1 https://github.com/erlang/otp.git . && \
+    git clone -b OTP-$ERLANG_VERSION --single-branch --depth 1 https://github.com/erlang/otp.git ${BUILD_TEMP} && \
+    cd ${BUILD_TEMP} && \
     # Erlang/OTP build env
-    export ERL_TOP=/tmp/erlang-build && \
+    export ERL_TOP=${BUILD_TEMP} && \
     export PATH=$ERL_TOP/bin:$PATH && \
     export CPPFlAGS="-D_BSD_SOURCE $CPPFLAGS" && \
     # Configure
@@ -82,7 +83,7 @@ RUN \
     # Cleanup
     apk del --force .erlang-build && \
     cd $HOME && \
-    rm -rf /tmp/erlang-build && \
+    rm -rf ${BUILD_TEMP} && \
     # Update ca certificates
     update-ca-certificates --fresh
 
