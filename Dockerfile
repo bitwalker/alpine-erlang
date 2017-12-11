@@ -21,8 +21,8 @@ RUN \
     adduser -s /bin/sh -u 1001 -G root -h "${HOME}" -S -D default && \
     chown -R 1001:0 "${HOME}" && \
     # Add tagged repos as well as the edge repo so that we can selectively install edge packages
-    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories && \
+    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.6/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories && \
     echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
     apk --no-cache upgrade && \
