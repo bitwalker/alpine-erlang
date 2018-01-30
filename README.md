@@ -15,9 +15,9 @@ To boot straight to a prompt in the image:
 
 ```
 $ docker run --rm -it --user=root bitwalker/alpine-erlang erl
-Erlang/OTP 20 [erts-9.0] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+Erlang/OTP 20 [erts-9.2] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
 
-Eshell V9.0  (abort with ^G)
+Eshell V9.2  (abort with ^G)
 1>
 BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
        (v)ersion (k)ill (D)b-tables (d)istribution
@@ -27,7 +27,7 @@ a
 Extending for your own application:
 
 ```dockerfile
-FROM bitwalker/alpine-erlang:20.1
+FROM bitwalker/alpine-erlang:20.2.2
 
 # Set exposed ports
 EXPOSE 5000
