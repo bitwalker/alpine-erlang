@@ -27,7 +27,7 @@ a
 Extending for your own application:
 
 ```dockerfile
-FROM bitwalker/alpine-erlang:20.2.4
+FROM bitwalker/alpine-erlang:20.3.1
 
 # Set exposed ports
 EXPOSE 5000
