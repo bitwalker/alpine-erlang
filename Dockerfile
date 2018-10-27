@@ -11,7 +11,7 @@ ENV REFRESHED_AT=2018-09-17 \
     HOME=/opt/app/ \
     # Set this so that CTRL+G works properly
     TERM=xterm \
-    ERLANG_VERSION=21.0.9
+    ERLANG_VERSION=21.1
 
 WORKDIR /tmp/erlang-build
 
@@ -26,12 +26,11 @@ RUN \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories && \
     echo "@edge http://dl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
-    apk --no-cache upgrade && \
-    # Distillery requires bash
-    apk add --no-cache bash && \
-    # Install Erlang/OTP deps
-    apk add --no-cache pcre@edge && \
-    apk add --no-cache \
+    apk --no-cache --update --available upgrade && \
+    # Distillery requires bash Install bash and Erlang/OTP deps
+    apk add --no-cache --update \
+      bash \
+      pcre \
       ca-certificates \
       openssl-dev \
       ncurses-dev \
