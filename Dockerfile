@@ -24,13 +24,13 @@ RUN \
     # Add tagged repos as well as the edge repo so that we can selectively install edge packages
     echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.8/main" >> /etc/apk/repositories && \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories && \
-    echo "@edge http://dl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
     apk --no-cache --update --available upgrade && \
     # Distillery requires bash Install bash and Erlang/OTP deps
+    apk add --no-cache --update pcre@edge && \
     apk add --no-cache --update \
       bash \
-      pcre \
       ca-certificates \
       openssl-dev \
       ncurses-dev \
