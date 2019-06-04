@@ -6,12 +6,12 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2019-05-22 \
+ENV REFRESHED_AT=2019-06-04 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     # Set this so that CTRL+G works properly
     TERM=xterm \
-    ERLANG_VERSION=22.0.1
+    ERLANG_VERSION=22.0.2
 
 WORKDIR /tmp/erlang-build
 
