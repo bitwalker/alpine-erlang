@@ -1,4 +1,4 @@
-FROM alpine:3.10.2 AS build
+FROM alpine:3.11.2 AS build
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
