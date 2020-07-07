@@ -8,7 +8,7 @@ ENV REFRESHED_AT=2020-05-01 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
-    ERLANG_VERSION=22.3.3
+    ERLANG_VERSION=23.0.2
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
 RUN \
@@ -23,23 +23,23 @@ RUN apk --no-cache --update --available upgrade
 RUN \
     apk add --no-cache --update pcre@edge && \
     apk add --no-cache --update \
-      bash \
-      ca-certificates \
-      openssl-dev \
-      ncurses-dev \
-      unixodbc-dev \
-      zlib-dev
+    bash \
+    ca-certificates \
+    openssl-dev \
+    ncurses-dev \
+    unixodbc-dev \
+    zlib-dev
 
 # Install Erlang/OTP build deps
 RUN \
     apk add --no-cache --virtual .erlang-build \
-      dpkg-dev \
-      dpkg \
-      binutils \
-      git \
-      autoconf \
-      build-base \
-      perl-dev
+    dpkg-dev \
+    dpkg \
+    binutils \
+    git \
+    autoconf \
+    build-base \
+    perl-dev
 
 WORKDIR /tmp/erlang-build
 
@@ -56,34 +56,34 @@ RUN \
     # Configure
     ./otp_build autoconf && \
     ./configure \
-      --prefix=/usr/local \
-      --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-      --sysconfdir=/etc \
-      --mandir=/usr/share/man \
-      --infodir=/usr/share/info \
-      --without-javac \
-      --without-wx \
-      --without-debugger \
-      --without-observer \
-      --without-jinterface \
-      --without-cosEvent\
-      --without-cosEventDomain \
-      --without-cosFileTransfer \
-      --without-cosNotification \
-      --without-cosProperty \
-      --without-cosTime \
-      --without-cosTransactions \
-      --without-et \
-      --without-gs \
-      --without-ic \
-      --without-megaco \
-      --without-orber \
-      --without-percept \
-      --without-typer \
-      --enable-threads \
-      --enable-shared-zlib \
-      --enable-ssl=dynamic-ssl-lib \
-      --enable-hipe && \
+    --prefix=/usr/local \
+    --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --infodir=/usr/share/info \
+    --without-javac \
+    --without-wx \
+    --without-debugger \
+    --without-observer \
+    --without-jinterface \
+    --without-cosEvent\
+    --without-cosEventDomain \
+    --without-cosFileTransfer \
+    --without-cosNotification \
+    --without-cosProperty \
+    --without-cosTime \
+    --without-cosTransactions \
+    --without-et \
+    --without-gs \
+    --without-ic \
+    --without-megaco \
+    --without-orber \
+    --without-percept \
+    --without-typer \
+    --enable-threads \
+    --enable-shared-zlib \
+    --enable-ssl=dynamic-ssl-lib \
+    --enable-hipe && \
     make -j4
 
 # Install to temporary location
@@ -96,12 +96,12 @@ RUN \
     rm -rf /tmp/usr/local/lib/erlang/usr/ && \
     rm -rf /tmp/usr/local/lib/erlang/misc/ && \
     for DIR in /tmp/usr/local/lib/erlang/erts* /tmp/usr/local/lib/erlang/lib/*; do \
-        rm -rf ${DIR}/src/*.erl; \
-        rm -rf ${DIR}/doc; \
-        rm -rf ${DIR}/man; \
-        rm -rf ${DIR}/examples; \
-        rm -rf ${DIR}/emacs; \
-        rm -rf ${DIR}/c_src; \
+    rm -rf ${DIR}/src/*.erl; \
+    rm -rf ${DIR}/doc; \
+    rm -rf ${DIR}/man; \
+    rm -rf ${DIR}/examples; \
+    rm -rf ${DIR}/emacs; \
+    rm -rf ${DIR}/c_src; \
     done && \
     rm -rf /tmp/usr/local/lib/erlang/erts-*/lib/ && \
     rm /tmp/usr/local/lib/erlang/erts-*/bin/dialyzer && \
@@ -139,12 +139,12 @@ RUN \
     # Install bash and Erlang/OTP deps
     apk add --no-cache --update pcre@edge && \
     apk add --no-cache --update \
-      bash \
-      ca-certificates \
-      openssl \
-      ncurses \
-      unixodbc \
-      zlib && \
+    bash \
+    ca-certificates \
+    openssl \
+    ncurses \
+    unixodbc \
+    zlib && \
     # Update ca certificates
     update-ca-certificates --fresh
 
