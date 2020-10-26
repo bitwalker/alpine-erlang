@@ -1,10 +1,10 @@
-FROM arm64v8/alpine:3.12.0 AS build
+FROM arm64v8/alpine:3.12.1 AS build
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2020-10-02 \
+ENV REFRESHED_AT=2020-10-26 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
@@ -111,7 +111,7 @@ RUN \
 
 ### Final Image
 
-FROM arm64v8/alpine:3.12.0
+FROM arm64v8/alpine:3.12.1
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
