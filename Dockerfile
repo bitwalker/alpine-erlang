@@ -1,19 +1,19 @@
-FROM alpine:3.10.2 AS build
+FROM alpine:3.12.1 AS build
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2020-11-04 \
+ENV REFRESHED_AT=2020-12-07 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
-    ERLANG_VERSION=23.1.1
+    ERLANG_VERSION=23.1.4
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
 RUN \
-    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.10/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.10/community" >> /etc/apk/repositories && \
+    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.12/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.12/community" >> /etc/apk/repositories && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 # Upgrade Alpine and base packages
@@ -42,6 +42,8 @@ RUN \
       perl-dev
 
 WORKDIR /tmp/erlang-build
+
+COPY patches /tmp/patches
 
 # Clone, Configure, Build
 RUN \
@@ -109,7 +111,7 @@ RUN \
 
 ### Final Image
 
-FROM alpine:3.10.2
+FROM alpine:3.12.1
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
@@ -129,8 +131,8 @@ RUN \
     adduser -s /bin/sh -u 1001 -G root -h "${HOME}" -S -D default && \
     chown -R 1001:0 "${HOME}" && \
     # Add tagged repos as well as the edge repo so that we can selectively install edge packages
-    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.10/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.10/community" >> /etc/apk/repositories && \
+    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.12/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.12/community" >> /etc/apk/repositories && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
     apk --no-cache --update --available upgrade && \
