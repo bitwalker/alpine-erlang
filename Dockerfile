@@ -43,8 +43,6 @@ RUN \
 
 WORKDIR /tmp/erlang-build
 
-COPY patches /tmp/patches
-
 # Clone, Configure, Build
 RUN \
     # Shallow clone Erlang/OTP
