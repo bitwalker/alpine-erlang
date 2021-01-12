@@ -1,14 +1,14 @@
-FROM alpine:3.12.1 AS build
+FROM alpine:3.12.3 AS build
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2020-12-07 \
+ENV REFRESHED_AT=2021-01-12 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
-    ERLANG_VERSION=23.1.4
+    ERLANG_VERSION=23.2.1
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
 RUN \
@@ -109,7 +109,7 @@ RUN \
 
 ### Final Image
 
-FROM alpine:3.12.1
+FROM alpine:3.12.3
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
