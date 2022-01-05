@@ -22,13 +22,13 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy: 
-      matrix: 
-        otp: [23.3.4.9, 24.1.7]
+    strategy:
+      matrix:
+        otp: [23.3.4.9, 24.2]
         alpine: [3.15.0]
         latest: [false]
         include:
-          - otp: 24.1.7
+          - otp: 24.2
             alpine: 3.15.0
             latest: true
     steps:
