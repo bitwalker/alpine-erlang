@@ -24,11 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: [23.3.4.13, 24.3.4]
+        otp: [23.3.4.13, 24.3.4, 25.0.2]
         alpine: [3.15.4]
         latest: [false]
         include:
-          - otp: 24.3.4
+          - otp: 25.0.2
             alpine: 3.15.4
             latest: true
     steps:
