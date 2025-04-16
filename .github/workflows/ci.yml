@@ -8,6 +8,7 @@ on:
       - 'Makefile'
       - 'Dockerfile'
       - 'VERSION'
+      - .github/workflows/ci.yml
   pull_request:
     paths:
       - 'Makefile'
